@@ -1,10 +1,12 @@
 # Z80-μLM: A Retrocomputing Micro Language Model
 
-Z80-μLM is a 'conversational AI' that generates short character-by-character sequences, trained with quantization-aware training (QAT) to run on a Z80 processor with 64kb of ram.
+Z80-μLM is a 'conversational AI' that generates short character-by-character sequences, with quantization-aware training (QAT) to run on a Z80 processor with 64kb of ram.
 
 The root behind this project was the question: how small can we go while still having personality, and can it be trained or fine-tuned easily? With easy self-hosted distribution?
 
-The answer is Yes! And a 40kb .com binary (including inference, weights & a chat-style UI) running on a 4MHz processor from 1976. It won't pass the Turing test, but it might make you smile at the green screen.
+The answer is Yes! And a 40kb .com binary (including inference, weights & a chat-style UI) running on a 4MHz processor from 1976.
+
+It won't pass the Turing test, but it might make you smile at the green screen.
 
 ## Quick Start
 
@@ -59,7 +61,7 @@ A 1-2 word response can convey surprising nuance:
 - `MAYBE` - genuine uncertainty
 - `AM I?` - reflecting the question back
 
-This isn't a limitation - it's a different mode of interaction. Terse responses force you to infer meaning from context or ask probing direct yes/no questions to see if it understands or not (e.g. 'are you a bot', 'are you human', 'am i human' displays logically consistent memorized answers)
+This isn't necessarily a limitation - it's a different mode of interaction. The terse responses force you to infer meaning from context or ask probing direct yes/no questions to see if it understands or not (e.g. 'are you a bot', 'are you human', 'am i human' displays logically consistent memorized answers)
 
 ### What It's Good At
 
@@ -79,22 +81,7 @@ It's small, but functional. And sometimes that's exactly what you need
 
 ## Architecture
 
-```
-Input (256) → Hidden layers → Output (charset size)
-   ↓
-[128 query buckets | 128 context buckets]
-   ↓
-Trigram hashing encodes your query
-Context encodes recent output characters
-   ↓
-Neural network predicts next character
-   ↓
-Loop until done
-```
-
-### Network Structure
-
-- **Input**: 256 dimensions (128 query trigram buckets + 128 context buckets)
+- **Input**: 128 query trigram buckets + 128 context buckets
 - **Hidden layers**: Configurable depth/width, e.g., 256 → 192 → 128
 - **Output**: One neuron per character in charset
 - **Activation**: ReLU between hidden layers
@@ -103,7 +90,7 @@ Loop until done
 
 The Z80 is an 8-bit CPU, but we use its 16-bit register pairs (HL, DE, BC) for activations and accumulators. Weights are packed 4-per-byte (2-bit each) and unpacked into 8-bit signed values for the multiply-accumulate.
 
-The 16-bit accumulator gives us numerical stability (summing 256 inputs without overflow), but the model's expressiveness is still bottlenecked by the 2-bit weights.
+The 16-bit accumulator gives us numerical stability (summing 256 inputs without overflow), but the model's expressiveness is still bottlenecked by the 2-bit weights, and naive training may overflow or act 'weirdly' without QAT.
 
 ### Z80 Inner Loops
 

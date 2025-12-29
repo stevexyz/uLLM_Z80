@@ -16,7 +16,7 @@ This generates Z80 machine code for character-by-character text generation:
 
 import numpy as np
 import torch
-from z80 import Z80Builder
+from libz80 import Z80Builder
 from feedme import AutoregressiveModel
 
 # Z80 Constants

@@ -28,6 +28,9 @@ HI|yo!
 are you real|MAYBE
 i hate you|ok
 im sure about this|R U?
+youre|you're
+im|I'm
+theyre|they're
 ```
 
 The `data/` folder contains some themed training files. You can pipe or cat training data to the `feedme.py` script, for example:
@@ -42,7 +45,7 @@ At any point you can hit Ctrl+C to gracefully stop training, and take a binary s
 
 ## Quantization-Aware Training (QAT)
 
-The model trains with progressive quantization - never pure float:
+The model trains with progressive quantization, but never pure float:
 
 ```python
 quant_temp = 0.3 + 0.7 * min(1.0, epoch / (epochs * 0.8))
@@ -108,6 +111,18 @@ is it good|GOOD?
 ### 7. Keep Responses Short
 
 1-2 words, 5-10 characters max. Longer responses are harder to learn and slower to generate.
+
+### 8. Match Data Size to Model Capacity
+
+Rule of thumb: aim for roughly 1 training example per parameter. A 150K parameter model wants ~150K input/output pairs. Too few examples = overfitting. Too many = underfitting (model can't memorize everything).
+
+Note: each query-response pair generates multiple character-level training examples during autoregressive training, so the effective example count is higher than your line count.
+
+### 9. Out-of-Distribution Inputs Are Unpredictable
+
+Inputs the model never saw during training will produce arbitrary outputs. With only 2-bit weights and limited capacity, there's no graceful "I don't know" - the model just fires whatever neurons activate strongest for the unfamiliar trigram pattern.
+
+If you need reliable behavior on novel inputs, train explicit catch-all patterns (e.g., nonsense → IDK).
 
 
 ## Model Architecture
@@ -186,6 +201,16 @@ Typical charset: ` ABCDEFGHIJKLMNOPQRSTUVWXYZ?!'` + EOS (~30-35 chars)
 - Not enough training variety
 - Try more epochs
 - Check for class imbalance in responses
+
+**Class imbalance causes default behavior.** If 60% of your training data has the same response, the model learns to output that response when uncertain. Small models are especially prone to this - they lack capacity to learn nuanced decision boundaries, so they fall back to the statistical majority.
+
+Fix: count your response distribution and balance before training. Aim for roughly equal representation of each response class, or at least no class dominating above 40%.
+
+### Similar inputs produce same output
+
+Trigram hashing with 128 buckets means long similar phrases collide. For example, "bigger than elephant" and "smaller than elephant" share most trigrams - the distinguishing "big"/"sma" signal gets drowned out.
+
+**Short distinctive phrases work best.** Single keywords or 2-3 word phrases with unique character patterns. Long sentences with subtle differences will confuse the model.
 
 ### .COM file too big
 

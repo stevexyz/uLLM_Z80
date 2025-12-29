@@ -17,38 +17,21 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-import json
 from typing import List, Tuple
 from collections import Counter
 
-from qat import OverflowAwareLinear
+from libqat import OverflowAwareLinear
 
 
 # Character set - built dynamically from training data
 # EOS is always last character
 EOS_CHAR = '\x00'
 
-DEFAULT_TRAINING_SETS = [
-    'training_conversation.jsonl',  # Generated from .lines files
-    # 'training_conversational.jsonl',  # ELIZA-style responses
-    # 'training_data.jsonl',  # CP/M commands
-]
-
-def build_charset_from_data(filenames: List[str]|None = None) -> str:
-    """Scan training data and build minimal charset from responses."""
-    if filenames is None:
-        filenames = DEFAULT_TRAINING_SETS
-
+def build_charset_from_pairs(pairs: List[Tuple[str, str]]) -> str:
+    """Build minimal charset from loaded query-response pairs."""
     chars = set()
-    for filename in filenames:
-        try:
-            with open(filename) as f:
-                for line in f:
-                    obj = json.loads(line)
-                    response = obj['response'].upper()  # Normalize to uppercase
-                    chars.update(response)
-        except FileNotFoundError:
-            pass
+    for query, response in pairs:
+        chars.update(response.upper())  # Normalize to uppercase
 
     # Sort for consistency: space first, then A-Z, then 0-9, then punctuation
     chars.discard(EOS_CHAR)  # Remove if present, we add it last
@@ -62,12 +45,12 @@ def build_charset_from_data(filenames: List[str]|None = None) -> str:
     return charset
 
 
-# Build charset on module load (will be rebuilt in train function with actual files)
-CHARSET = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.:=*?-/'" + EOS_CHAR  # Fallback
-CHAR_TO_IDX = {c: i for i, c in enumerate(CHARSET)}
-IDX_TO_CHAR = {i: c for i, c in enumerate(CHARSET)}
-EOS_IDX = len(CHARSET) - 1
-NUM_CHARS = len(CHARSET)
+# These are set dynamically from training data
+CHARSET = ""
+CHAR_TO_IDX = {}
+IDX_TO_CHAR = {}
+EOS_IDX = 0
+NUM_CHARS = 0
 
 
 def char_to_idx(c: str) -> int:
@@ -183,25 +166,6 @@ def create_training_examples(query: str, response: str,
     return examples
 
 
-def load_training_pairs(filenames: List[str]|None = None) -> List[Tuple[str, str]]:
-    """Load query-response pairs from training data files."""
-    if filenames is None:
-        filenames = DEFAULT_TRAINING_SETS
-
-    pairs = []
-    for filename in filenames:
-        try:
-            with open(filename) as f:
-                for line in f:
-                    obj = json.loads(line)
-                    query = obj['query']
-                    response = obj['response']
-                    pairs.append((query, response))
-            print(f"  Loaded {filename}")
-        except FileNotFoundError:
-            print(f"  Skipped {filename} (not found)")
-
-    return pairs
 
 
 class AutoregressiveModel(nn.Module):
@@ -330,234 +294,222 @@ def generate_response(model: AutoregressiveModel, query: str,
     return output.strip()
 
 
-def train_autoregressive(epochs: int = 500, lr: float = 0.01) -> AutoregressiveModel:
-    """Train the autoregressive model."""
+
+
+def parse_pair(line: str) -> Tuple[str, str] | None:
+    """Parse a single line into (query, response) or None if invalid."""
+    line = line.strip()
+    if '|' not in line:
+        return None
+
+    parts = line.split('|', 1)
+    if len(parts) != 2:
+        return None
+
+    query = parts[0].strip().upper()
+    response = parts[1].strip().upper()
+
+    if len(query) >= 2 and len(response) >= 1:
+        # Truncate smartly
+        if len(query) > 60:
+            query = query[:60].rsplit(' ', 1)[0] if ' ' in query[40:60] else query[:60]
+        if len(response) > 50:
+            response = response[:50].rsplit(' ', 1)[0] if ' ' in response[30:50] else response[:50]
+        return (query, response)
+
+    return None
+
+
+def load_chunk(stdin, chunk_size: int = 0) -> List[Tuple[str, str]]:
+    """Load up to chunk_size pairs from stdin (0 = all)."""
+    pairs = []
+    for line in stdin:
+        pair = parse_pair(line)
+        if pair:
+            pairs.append(pair)
+            if chunk_size > 0 and len(pairs) >= chunk_size:
+                break
+    return pairs
+
+
+def validate_charset(pairs: List[Tuple[str, str]], charset: str) -> None:
+    """Error if pairs contain characters not in charset."""
+    allowed = set(charset)
+    for query, response in pairs:
+        for c in response:
+            if c not in allowed:
+                raise ValueError(f"Character '{c}' (ord {ord(c)}) in response '{response}' not in charset. "
+                               f"Charset was built from first chunk and cannot change.")
+
+
+def train_chunked(chunk_size: int = 1000, epochs_per_chunk: int = 100, lr: float = 0.01, save_best: bool = False):
+    """Train incrementally on chunks of data from stdin."""
     global CHARSET, CHAR_TO_IDX, IDX_TO_CHAR, EOS_IDX, NUM_CHARS
+    import sys
+    import time
 
     print("=" * 60)
-    print("Autoregressive Character Model Training")
+    print("Loading training data...")
+
+    # Load all pairs upfront (cheap) to know totals
+    all_pairs = load_chunk(sys.stdin, 0)  # 0 = load all
+    total_pairs = len(all_pairs)
+
+    if total_pairs == 0:
+        print("No training data!")
+        return None
+
+    # Calculate chunks
+    if chunk_size <= 0:
+        chunk_size = total_pairs
+    total_chunks = (total_pairs + chunk_size - 1) // chunk_size
+
+    print(f"Loaded {total_pairs} pairs → {total_chunks} chunks of {chunk_size}")
+    print(f"Epochs per chunk: {epochs_per_chunk}")
     print("=" * 60)
 
-    # Build charset from training data
-    print("\nBuilding charset from training data...")
-    CHARSET = build_charset_from_data()
+    # Build charset from ALL pairs (ensures consistency)
+    CHARSET = build_charset_from_pairs(all_pairs)
     CHAR_TO_IDX = {c: i for i, c in enumerate(CHARSET)}
     IDX_TO_CHAR = {i: c for i, c in enumerate(CHARSET)}
     EOS_IDX = len(CHARSET) - 1
     NUM_CHARS = len(CHARSET)
     print(f"Charset ({NUM_CHARS} chars): {repr(CHARSET[:-1])} + EOS")
 
-    # Create encoders
     query_encoder = TrigramEncoder(num_buckets=128)
     context_encoder = ContextEncoder(num_buckets=128, context_len=8)
-
-    # Load data and create examples
-    print("\nLoading training data...")
-    pairs = load_training_pairs()
-    print(f"Loaded {len(pairs)} query-response pairs")
-
-    # Generate character-level examples
-    print("Generating character-level examples...")
-    all_examples = []
-    for query, response in pairs:
-        examples = create_training_examples(query, response, query_encoder, context_encoder)
-        all_examples.extend(examples)
-
-    print(f"Created {len(all_examples)} character prediction examples")
-
-    # Convert to tensors
-    X = np.stack([ex[0] for ex in all_examples])
-    y = np.array([ex[1] for ex in all_examples])
-
-    X = torch.tensor(X, dtype=torch.float32)
-    y = torch.tensor(y, dtype=torch.long)
-
-    print(f"Dataset shape: {X.shape}")
-
-    # Show character distribution
-    char_counts = Counter(y.numpy())
-    print(f"Most common outputs: {[(idx_to_char(i), c) for i, c in char_counts.most_common(10)]}")
-
-    # Create model - larger architecture for better capacity
     hidden_sizes = [256, 192, 128]
-    model = AutoregressiveModel(input_size=256, hidden_sizes=hidden_sizes, num_chars=NUM_CHARS)
-
-    total_params = sum(p.numel() for p in model.parameters())
-    arch_str = "256 → " + " → ".join(map(str, hidden_sizes)) + f" → {NUM_CHARS}"
-    print(f"\nModel: {arch_str}")
-    print(f"Parameters: {total_params:,}")
-
-    # Try to load existing checkpoint for resume
-    start_epoch = 0
-    prev_best_acc = 0.0
     checkpoint_file = 'command_model_autoreg.pt'
-    try:
-        checkpoint = torch.load(checkpoint_file, weights_only=False)
-        # Check if architecture matches (dimensions must be same)
-        arch = checkpoint.get('architecture', {})
-        if arch.get('num_classes') == NUM_CHARS:
-            model.load_state_dict(checkpoint['model_state'])
-            start_epoch = checkpoint.get('total_epochs', 0)
-            prev_best_acc = checkpoint.get('best_int_acc', 0.0)
-            print(f"\nResuming from epoch {start_epoch} (best IntAcc: {prev_best_acc:.1%})")
-        else:
-            print(f"\nOutput size changed ({arch.get('num_classes')} → {NUM_CHARS}), starting fresh")
-    except FileNotFoundError:
-        print(f"\nNo checkpoint found, starting fresh")
-    except Exception as e:
-        print(f"\nCouldn't load checkpoint: {e}, starting fresh")
 
-    # Training loop
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
-    criterion = nn.CrossEntropyLoss()
-
-    print(f"Training for {epochs} more epochs (total will be {start_epoch + epochs})...")
-
-    import time
-    epoch_times = []
-
-    # Track best models
-    best_int_acc = prev_best_acc
-    best_epoch = start_epoch
+    model = None
+    total_epochs = 0
+    best_int_acc = 0.0
+    best_epoch = 0
     best_state = None
 
+    # Try to resume from checkpoint
     try:
-      for epoch in range(epochs):
-        epoch_start = time.time()
-        model.train()
-        model.reset_overflow_stats()
-        optimizer.zero_grad()
+        checkpoint = torch.load(checkpoint_file, weights_only=False)
+        arch = checkpoint.get('architecture', {})
+        if arch.get('num_classes') == NUM_CHARS:
+            model = AutoregressiveModel(input_size=256, hidden_sizes=hidden_sizes, num_chars=NUM_CHARS)
+            model.load_state_dict(checkpoint['model_state'])
+            total_epochs = checkpoint.get('total_epochs', 0)
+            best_int_acc = checkpoint.get('best_int_acc', 0.0)
+            best_epoch = checkpoint.get('best_epoch', 0)
+            print(f"Resumed from checkpoint: {total_epochs} epochs, best IntAcc: {best_int_acc:.1%}")
+        else:
+            print(f"Output size changed ({arch.get('num_classes')} → {NUM_CHARS}), starting fresh")
+    except FileNotFoundError:
+        print("No checkpoint found, starting fresh")
+    except Exception as e:
+        print(f"Couldn't load checkpoint: {e}, starting fresh")
 
-        # Progressive quantization: never pure float, always some quantization
-        # Start at 0.3, ramp to 1.0 over 80% of training
-        quant_temp = 0.3 + 0.7 * min(1.0, epoch / (epochs * 0.8))
+    # Initialize model if needed
+    if model is None:
+        model = AutoregressiveModel(input_size=256, hidden_sizes=hidden_sizes, num_chars=NUM_CHARS)
+        total_params = sum(p.numel() for p in model.parameters())
+        print(f"Model: 256 → {' → '.join(map(str, hidden_sizes))} → {NUM_CHARS}")
+        print(f"Parameters: {total_params:,}")
 
-        outputs = model(X, quant_temp=quant_temp)
-        ce_loss = criterion(outputs, y)
+    # Process in chunks
+    for chunk_num in range(total_chunks):
+        start_idx = chunk_num * chunk_size
+        end_idx = min(start_idx + chunk_size, total_pairs)
+        chunk = all_pairs[start_idx:end_idx]
 
-        # QAT regularization (stronger for better int accuracy)
-        quant_loss = model.compute_quantization_loss() * 0.10
-        overflow_loss = model.compute_total_overflow_penalty(X) * 0.03
+        print(f"\n--- Chunk {chunk_num + 1}/{total_chunks}: {len(chunk)} pairs ---")
 
-        loss = ce_loss + quant_loss + overflow_loss
-        loss.backward()
-        optimizer.step()
+        # Generate examples for this chunk
+        all_examples = []
+        for query, response in chunk:
+            examples = create_training_examples(query, response, query_encoder, context_encoder)
+            all_examples.extend(examples)
 
-        if (epoch + 1) % 5 == 0:
-            with torch.no_grad():
-                preds = outputs.argmax(dim=1)
-                acc = (preds == y).float().mean()
-                # Also check integer accuracy
-                int_outputs = model(X, use_int=True)
-                int_preds = int_outputs.argmax(dim=1)
-                int_acc = (int_preds == y).float().mean()
-                epoch_time = time.time() - epoch_start
-                epoch_times.append(epoch_time)
-                avg_time = sum(epoch_times) / len(epoch_times)
+        print(f"Generated {len(all_examples)} character examples")
 
-                # Track best IntAcc model
-                int_acc_val = int_acc.item()
-                total_epoch = start_epoch + epoch + 1
-                if int_acc_val > best_int_acc:
-                    best_int_acc = int_acc_val
-                    best_epoch = total_epoch
-                    best_state = {k: v.clone() for k, v in model.state_dict().items()}
-                    marker = " *BEST*"
-                else:
-                    marker = ""
+        X = torch.tensor(np.stack([ex[0] for ex in all_examples]), dtype=torch.float32)
+        y = torch.tensor(np.array([ex[1] for ex in all_examples]), dtype=torch.long)
 
-                print(f"Epoch {total_epoch:3d}: CE={ce_loss.item():.4f}, Acc={acc:.1%}, IntAcc={int_acc:.1%}, QTemp={quant_temp:.2f}, Overflow={max(model.get_overflow_stats().values()):.3f}x  ({avg_time:.2f}s/epoch){marker}")
+        # Train on this chunk
+        optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
+        criterion = nn.CrossEntropyLoss()
 
-                # Sample inference every 25 epochs
-                if (epoch + 1) % 5 == 0:
-                    sample_queries = [
-                        "HOW ARE YOU?",
-                        "WHAT DO YOU THINK?",
-                        "WHERE ARE YOU GOING?",
-                        "THANK YOU.",
-                        "I NEED HELP.",
-                    ]
-                    sample_q = sample_queries[(epoch // 25) % len(sample_queries)]
-                    model.eval()
-                    sample_resp = generate_response(model, sample_q, query_encoder, context_encoder, max_len=30)
-                    model.train()
-                    print(f"         → '{sample_q}' → '{sample_resp}'")
+        interrupted = False
+        for epoch in range(epochs_per_chunk):
+            try:
+                model.train()
+                model.reset_overflow_stats()
+                optimizer.zero_grad()
 
-    except KeyboardInterrupt:
-        print(f"\n\nInterrupted at epoch {epoch + 1}!")
+                quant_temp = 0.3 + 0.7 * min(1.0, epoch / (epochs_per_chunk * 0.8))
 
-    # Report best model
-    print("\n" + "=" * 60)
+                outputs = model(X, quant_temp=quant_temp)
+                ce_loss = criterion(outputs, y)
+                quant_loss = model.compute_quantization_loss() * 0.10
+                overflow_loss = model.compute_total_overflow_penalty(X) * 0.03
+
+                loss = ce_loss + quant_loss + overflow_loss
+                loss.backward()
+                optimizer.step()
+
+                if (epoch + 1) % 10 == 0:
+                    with torch.no_grad():
+                        preds = outputs.argmax(dim=1)
+                        acc = (preds == y).float().mean()
+                        int_outputs = model(X, use_int=True)
+                        int_preds = int_outputs.argmax(dim=1)
+                        int_acc = (int_preds == y).float().mean()
+
+                        current_epoch = total_epochs + epoch + 1
+                        if int_acc.item() > best_int_acc:
+                            best_int_acc = int_acc.item()
+                            best_epoch = current_epoch
+                            best_state = {k: v.clone() for k, v in model.state_dict().items()}
+                            marker = " *BEST*"
+                        else:
+                            marker = ""
+
+                        print(f"  Epoch {current_epoch}: CE={ce_loss.item():.4f}, Acc={acc:.1%}, IntAcc={int_acc:.1%}{marker}")
+
+            except KeyboardInterrupt:
+                print("\nInterrupted!")
+                interrupted = True
+                break
+
+        total_epochs += epoch + 1  # Count actual epochs completed
+
+        # Save after each chunk
+        if save_best and best_state:
+            save_state = best_state
+            save_note = "best"
+        else:
+            save_state = model.state_dict()
+            save_note = "latest"
+
+        torch.save({
+            'model_state': save_state,
+            'architecture': {
+                'input_size': 256,
+                'hidden_sizes': hidden_sizes,
+                'num_classes': NUM_CHARS,
+            },
+            'charset': CHARSET,
+            'total_epochs': total_epochs,
+            'best_int_acc': best_int_acc,
+            'best_epoch': best_epoch,
+        }, checkpoint_file)
+        print(f"Saved {save_note} (epochs: {total_epochs}, best: {best_int_acc:.1%} @ {best_epoch})")
+
+        if interrupted:
+            break
+
+    print(f"\n{'=' * 60}")
+    print(f"Finished: {chunk_num + 1}/{total_chunks} chunks, {total_epochs} total epochs")
     print(f"Best IntAcc: {best_int_acc:.1%} at epoch {best_epoch}")
     print("=" * 60)
 
-    # Restore best model for testing and saving
-    if best_state is not None:
-        model.load_state_dict(best_state)
-        #print("Restored best model weights")
-
-    # Test generation
-    print("\n" + "=" * 60)
-    print("Testing Generation:")
-    print("=" * 60)
-
-    test_queries = [
-        "HOW ARE YOU TODAY?",
-        "WHAT DO YOU THINK?",
-        "I NEED SOME HELP.",
-        "WHERE ARE YOU GOING?",
-        "THANK YOU VERY MUCH.",
-    ]
-
-    for query in test_queries:
-        response = generate_response(model, query, query_encoder, context_encoder)
-        print(f"  '{query}' → '{response}'")
-
-    # Save model with resume info
-    final_epoch = start_epoch + epochs
-    torch.save({
-        'model_state': model.state_dict(),
-        'architecture': {
-            'input_size': 256,
-            'hidden_sizes': hidden_sizes,
-            'num_classes': NUM_CHARS,
-        },
-        'charset': CHARSET,
-        'total_epochs': final_epoch,
-        'best_int_acc': best_int_acc,
-        'best_epoch': best_epoch,
-    }, 'command_model_autoreg.pt')
-    print(f"\nSaved to command_model_autoreg.pt (total epochs: {final_epoch}, best: {best_int_acc:.1%} @ {best_epoch})")
-
     return model
-
-
-def load_pairs_from_stdin() -> List[Tuple[str, str]]:
-    """Load pairs from stdin - pipe separated: input|response"""
-    import sys
-    pairs = []
-
-    for line in sys.stdin:
-        line = line.strip()
-        if '|' not in line:
-            continue
-
-        parts = line.split('|', 1)
-        if len(parts) != 2:
-            continue
-
-        query = parts[0].strip().upper()
-        response = parts[1].strip().upper()
-
-        if len(query) >= 2 and len(response) >= 1:
-            # Truncate smartly
-            if len(query) > 60:
-                query = query[:60].rsplit(' ', 1)[0] if ' ' in query[40:60] else query[:60]
-            if len(response) > 50:
-                response = response[:50].rsplit(' ', 1)[0] if ' ' in response[30:50] else response[:50]
-            pairs.append((query, response))
-
-    return pairs
 
 
 if __name__ == '__main__':
@@ -565,26 +517,20 @@ if __name__ == '__main__':
     import sys
 
     parser = argparse.ArgumentParser(description='Train autoregressive model')
-    parser.add_argument('--epochs', '-e', type=int, default=100, help='Epochs to train')
+    parser.add_argument('--epochs', '-e', type=int, default=100, help='Epochs to train (per chunk if chunked)')
     parser.add_argument('--file', '-f', type=str, default=None, help='Training data file (default: stdin)')
+    parser.add_argument('--chunk', '-c', type=int, default=0, help='Chunk size for streaming (0 = load all as one chunk)')
+    parser.add_argument('--save-best', action='store_true', help='Save best model instead of latest')
     parser.add_argument('--chat', action='store_true', help='Interactive chat after training')
     args = parser.parse_args()
 
-    # Check if data is being piped in
-    if not sys.stdin.isatty() or args.file:
-        # Override load_training_pairs to use stdin/file
-        if args.file:
-            # Read from file as alternating lines
-            with open(args.file) as f:
-                stdin_data = f.read()
-            import io
-            sys.stdin = io.StringIO(stdin_data)
+    # If file specified, redirect stdin from file
+    if args.file:
+        import io
+        with open(args.file) as f:
+            sys.stdin = io.StringIO(f.read())
 
-        # Monkey-patch to use stdin loader
-        _original_load = load_training_pairs
-        load_training_pairs = lambda *a, **kw: load_pairs_from_stdin()
-
-    model = train_autoregressive(epochs=args.epochs)
+    model = train_chunked(chunk_size=args.chunk, epochs_per_chunk=args.epochs, save_best=args.save_best)
 
     # Interactive chat session
     if args.chat:
