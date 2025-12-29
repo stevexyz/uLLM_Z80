@@ -68,7 +68,7 @@ Your input is hashed into 128 buckets via trigram encoding - an abstract "tag cl
 "helo ther"    →  [bucket 23: 32, bucket 87: 32, ...]  (similar - typo tolerant)
 ```
 
-This is semantically powerful for short inputs, but there's a limit: longer or order-dependent sentences blur together as concepts compete for the same buckets. "Open the door and turn on the lights" will likely be too close to distringuish from "turn on the door and open the lights."
+This is semantically powerful for short inputs, but there's a limit: longer or order-dependent sentences blur together as concepts compete for the same buckets. "Open the door and turn on the lights" will likely be too close to distinguish from "turn on the door and open the lights."
 
 ### Small Responses, Big Meaning
 
@@ -87,7 +87,7 @@ This isn't necessarily a limitation - it's a different mode of interaction. The 
 - Short, varied inputs with consistent categorized outputs
 - Fuzzy matching (typos, rephrasing, word order)
 - Personality through vocabulary choice
-- Running on constrianed 8-bit hardware
+- Running on constrained 8-bit hardware
 
 ### What It's Not
 
@@ -96,7 +96,7 @@ This isn't necessarily a limitation - it's a different mode of interaction. The 
 - A parser that understands grammar
 - Anything approaching general intelligence
 
-It's small, but functional. And sometimes that's exactly what you need
+It's small, but functional. And sometimes that's exactly what you need.
 
 ## Architecture
 
