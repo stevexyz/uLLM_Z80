@@ -423,106 +423,113 @@ def build_autoreg(model_path: str = 'command_model_autoreg.pt'):
         else:
             b.jp('LAYER')
 
+
     # === LAYER (same as build_nn.py) ===
-    b.label('LAYER')
-    b.ld_mem_label_bc('SAVCNT')
-    b.ld_mem_label_hl('SAVW')
-    b.ld_mem_label_de('SAVB')
+    b.label('LAYER')            # LAYER:                                          
+    b.ld_mem_label_bc('SAVCNT') #   ld (SAVCNT), bc                             
+    b.ld_mem_label_hl('SAVW')   #   ld (SAVW), hl                           
+    b.ld_mem_label_de('SAVB')   #   ld (SAVB), de                           
+                                # 
+    b.label('LNEUR')            # LNEUR:                    
+    b.push_bc()                 #   push bc             
+    b.ld_hl_nn(0)               #   ld hl, 0               
+    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
+    b.push_ix()                 #   push ix             
+    b.pop_hl()                  #   pop hl            
+    b.ld_mem_label_hl('CURIN')  #   ld (CURIN), hl                              
+    b.ld_hl_mem_label('SAVW')   #   ld hl, (SAVW)                           
+    b.ld_a_mem_label('SAVCNT')  #   ld a, (SAVCNT)                            
+    b.ld_b_a()                  #   ld b, a            
+    b.ld_c_n(0)                 #   ld c, 0             
+                                # 
+    b.label('LWT')              # LWT:                  
+    b.push_bc()                 #   push bc             
+    b.ld_a_c()                  #   ld a,c            
+    b.and_n(0x03)               #   and 11b               
+    b.jr_nz('LSAME')            #   jr nz, LSAME                  
+    b.ld_hl_mem_label('SAVW')   #   ld hl, (SAVW)                           
+    b.ld_a_hl()                 #   ld a, (hl)             
+    b.ld_mem_label_a('PACKED')  #   ld (PACKED), a                            
+    b.inc_hl()                  #   inc hl            
+    b.ld_mem_label_hl('SAVW')   #   ld (SAVW), hl                           
+                                # 
+    b.label('LSAME')            # LSAME:
+                                #   ; Unpack 2-bit weight from packed byte                    
+    b.ld_a_mem_label('PACKED')  #   ld a, (PACKED) ; Get packed weights                           
+    b.and_n(0x03)               #   and 11b        ; Mask bottom 2 bits       
+    b.sub_n(2)                  #   sub 2          ; Map 0,1,2,3 to -2,-1,0,+1  
+    b.ld_mem_label_a('WEIGHT')  #   ld (WEIGHT), a          
+                                #       
+                                #   ; Rotate for next weight           
+    b.ld_a_mem_label('PACKED')  #   la a, (PACKED)                            
+    b.rrca()                    #   rrca          
+    b.rrca()                    #   rrca          
+    b.ld_mem_label_a('PACKED')  #   ld (PACKED),a
+                                #                            
+    b.ld_hl_mem_label('CURIN')  #   ld hl, (CURIN)                            
+    b.ld_e_hl()                 #   ld e, (hl)             
+    b.inc_hl()                  #   inc hl            
+    b.ld_d_hl()                 #   ld d, (hl)             
+    b.inc_hl()                  #   inc hl            
+    b.ld_mem_label_hl('CURIN')  #   ld (CURIN), hl                            
+    b.ld_a_mem_label('WEIGHT')  #   ld a, (WEIGHT)                            
+    b.call('MULADD')            #   call MULADD                  
+    b.pop_bc()                  #   pop bc            
+    b.inc_c()                   #   inc c           
+    b.djnz('LWT')               #   djnz LWT               
+                                # 
+    b.ld_hl_mem_label('SAVB')   #   ld hl, (SAVB)                           
+    b.ld_e_hl()                 #   ld e, (hl)             
+    b.inc_hl()                  #   inc hl            
+    b.ld_d_hl()                 #   ld d, (hl)             
+    b.inc_hl()                  #   inc hl            
+    b.ld_mem_label_hl('SAVB')   #   ld (SAVB), hl                           
+    b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
+    b.add_hl_de()               #   add hl, de               
+    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl
+                                #   ; After each layer, arithmetic right-shift by 2 to prevent overflow                          
+    b.sra_h()                   #   sra h          ; Shift right arithmetic (preserves sign)    
+    b.rr_l()                    #   rr l          
+    b.sra_h()                   #   sra h           
+    b.rr_l()                    #   rr l           ; ACC = ACC / 4
+    b.ld_iyd_l(0)               #   ld (iy+0), l                
+    b.ld_iyd_h(1)               #   ld (iy+1), h              
+    b.inc_iy()                  #   inc iy            
+    b.inc_iy()                  #   inc iy            
+    b.pop_bc()                  #   pop bc            
+    b.dec_b()                   #   dec b           
+    b.jp_nz('LNEUR')            #   jp nz, LNEUR                  
+    b.ret()                     #   ret         
+                                # 
+    # === MULADD ===            #                     
+    b.label('MULADD')           # MULADD:                     
+    b.or_a()                    #   or a          
+    b.jr_z('MA_RET')            #   jr z, MA_RET                  
+    b.jp_m('MA_NEG')            #   jp m, MA_NEG                  
+    b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
+    b.add_hl_de()               #   add hl, de               
+    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
+    b.ret()                     #   ret
+                                #         
+    b.label('MA_NEG')           # MA_NEG:                     
+    b.cp_n(0xFF)                #   cp $FF              
+    b.jr_z('MA_N1')             #   jr z, MA_N1                 
+    b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
+    b.or_a()                    #   or a          
+    b.sbc_hl_de()               #   sbc hl, de               
+    b.sbc_hl_de()               #   sbc hl, de               
+    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
+    b.ret()                     #   ret         
+                                # 
+    b.label('MA_N1')            # MA_N1:                     
+    b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
+    b.or_a()                    #   or a          
+    b.sbc_hl_de()               #   sbc hl, de               
+    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
+                                # 
+    b.label('MA_RET')           # MA_RET:                     
+    b.ret()                     #   ret         
 
-    b.label('LNEUR')
-    b.push_bc()
-    b.ld_hl_nn(0)
-    b.ld_mem_label_hl('ACC')
-    b.push_ix()
-    b.pop_hl()
-    b.ld_mem_label_hl('CURIN')
-    b.ld_hl_mem_label('SAVW')
-    b.ld_a_mem_label('SAVCNT')
-    b.ld_b_a()
-    b.ld_c_n(0)
-
-    b.label('LWT')
-    b.push_bc()
-    b.ld_a_c()
-    b.and_n(0x03)
-    b.jr_nz('LSAME')
-    b.ld_hl_mem_label('SAVW')
-    b.ld_a_hl()
-    b.ld_mem_label_a('PACKED')
-    b.inc_hl()
-    b.ld_mem_label_hl('SAVW')
-
-    b.label('LSAME')
-    b.ld_a_mem_label('PACKED')
-    b.and_n(0x03)
-    b.sub_n(2)
-    b.ld_mem_label_a('WEIGHT')
-    b.ld_a_mem_label('PACKED')
-    b.rrca()
-    b.rrca()
-    b.ld_mem_label_a('PACKED')
-    b.ld_hl_mem_label('CURIN')
-    b.ld_e_hl()
-    b.inc_hl()
-    b.ld_d_hl()
-    b.inc_hl()
-    b.ld_mem_label_hl('CURIN')
-    b.ld_a_mem_label('WEIGHT')
-    b.call('MULADD')
-    b.pop_bc()
-    b.inc_c()
-    b.djnz('LWT')
-
-    b.ld_hl_mem_label('SAVB')
-    b.ld_e_hl()
-    b.inc_hl()
-    b.ld_d_hl()
-    b.inc_hl()
-    b.ld_mem_label_hl('SAVB')
-    b.ld_hl_mem_label('ACC')
-    b.add_hl_de()
-    b.ld_mem_label_hl('ACC')
-    b.sra_h()
-    b.rr_l()
-    b.sra_h()
-    b.rr_l()
-    b.ld_iyd_l(0)
-    b.ld_iyd_h(1)
-    b.inc_iy()
-    b.inc_iy()
-    b.pop_bc()
-    b.dec_b()
-    b.jp_nz('LNEUR')
-    b.ret()
-
-    # === MULADD ===
-    b.label('MULADD')
-    b.or_a()
-    b.jr_z('MA_RET')
-    b.jp_m('MA_NEG')
-    b.ld_hl_mem_label('ACC')
-    b.add_hl_de()
-    b.ld_mem_label_hl('ACC')
-    b.ret()
-
-    b.label('MA_NEG')
-    b.cp_n(0xFF)
-    b.jr_z('MA_N1')
-    b.ld_hl_mem_label('ACC')
-    b.or_a()
-    b.sbc_hl_de()
-    b.sbc_hl_de()
-    b.ld_mem_label_hl('ACC')
-    b.ret()
-
-    b.label('MA_N1')
-    b.ld_hl_mem_label('ACC')
-    b.or_a()
-    b.sbc_hl_de()
-    b.ld_mem_label_hl('ACC')
-
-    b.label('MA_RET')
-    b.ret()
 
     # === ReLU stubs ===
     for i in range(num_layers - 1):
