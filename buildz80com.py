@@ -35,7 +35,11 @@ def pack_2bit_weights(weights: np.ndarray) -> bytes:
         chunk = mapped[i:i+4]
         if len(chunk) < 4:
             chunk = np.pad(chunk, (0, 4 - len(chunk)), constant_values=2)
-        byte = int(chunk[0]) | (int(chunk[1]) << 2) | (int(chunk[2]) << 4) | (int(chunk[3]) << 6)
+        byte = \
+            (int(chunk[2]) << 6) | \
+            (int(chunk[1]) << 4) | \
+            (int(chunk[0]) << 2) | \
+            (int(chunk[3])) # chunk 3 as last since in the evaluation there will be first a rotation
         packed.append(byte)
 
     return bytes(packed)
@@ -423,7 +427,6 @@ def build_autoreg(model_path: str = 'command_model_autoreg.pt'):
         else:
             b.jp('LAYER')
 
-
     # === LAYER (same as build_nn.py) ===
     b.label('LAYER')            # LAYER:                                          
     b.ld_mem_label_bc('SAVCNT') #   ld (SAVCNT), bc                             
@@ -443,7 +446,6 @@ def build_autoreg(model_path: str = 'command_model_autoreg.pt'):
     b.ld_c_n(0)                 #   ld c, 0             
                                 # 
     b.label('LWT')              # LWT:                  
-    b.push_bc()                 #   push bc             
     b.ld_a_c()                  #   ld a,c            
     b.and_n(0x03)               #   and 11b               
     b.jr_nz('LSAME')            #   jr nz, LSAME                  
@@ -456,25 +458,18 @@ def build_autoreg(model_path: str = 'command_model_autoreg.pt'):
     b.label('LSAME')            # LSAME:
                                 #   ; Unpack 2-bit weight from packed byte                    
     b.ld_a_mem_label('PACKED')  #   ld a, (PACKED) ; Get packed weights                           
-    b.and_n(0x03)               #   and 11b        ; Mask bottom 2 bits       
-    b.sub_n(2)                  #   sub 2          ; Map 0,1,2,3 to -2,-1,0,+1  
-    b.ld_mem_label_a('WEIGHT')  #   ld (WEIGHT), a          
-                                #       
-                                #   ; Rotate for next weight           
-    b.ld_a_mem_label('PACKED')  #   la a, (PACKED)                            
-    b.rrca()                    #   rrca          
+    b.rrca()                    #   rrca ; Rotate for next weight          
     b.rrca()                    #   rrca          
     b.ld_mem_label_a('PACKED')  #   ld (PACKED),a
-                                #                            
+    b.and_n(0x03)               #   and 11b        ; Mask bottom 2 bits       
+                                #   ; 0,1,2,3 will be considered -2,-1,0,+1 in MULADD  
     b.ld_hl_mem_label('CURIN')  #   ld hl, (CURIN)                            
     b.ld_e_hl()                 #   ld e, (hl)             
     b.inc_hl()                  #   inc hl            
     b.ld_d_hl()                 #   ld d, (hl)             
     b.inc_hl()                  #   inc hl            
     b.ld_mem_label_hl('CURIN')  #   ld (CURIN), hl                            
-    b.ld_a_mem_label('WEIGHT')  #   ld a, (WEIGHT)                            
     b.call('MULADD')            #   call MULADD                  
-    b.pop_bc()                  #   pop bc            
     b.inc_c()                   #   inc c           
     b.djnz('LWT')               #   djnz LWT               
                                 # 
@@ -497,39 +492,30 @@ def build_autoreg(model_path: str = 'command_model_autoreg.pt'):
     b.inc_iy()                  #   inc iy            
     b.inc_iy()                  #   inc iy            
     b.pop_bc()                  #   pop bc            
-    b.dec_b()                   #   dec b           
-    b.jp_nz('LNEUR')            #   jp nz, LNEUR                  
+    b.djnz('LNEUR')             #   dec b : jp nz, LNEUR                  
     b.ret()                     #   ret         
                                 # 
     # === MULADD ===            #                     
+    # a is 0,1,2,3 that are as -2,-1,0,+1
     b.label('MULADD')           # MULADD:                     
-    b.or_a()                    #   or a          
-    b.jr_z('MA_RET')            #   jr z, MA_RET                  
-    b.jp_m('MA_NEG')            #   jp m, MA_NEG                  
+    # TODO: ACC should be put in a register
     b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
+    b.dec_a()                   #   dec a          
+    b.jr_z('MA_M1')             #   jr z, MA_M1 ; jump if a is -1 equivalent
+    b.dec_a()                   #   dec a          
+    b.ret_z()                   #   ret z ; a is zero equivalent
+    b.dec_a()                   #   dec a          
+    b.jr_z('MA_P1')             #   jr z, MA_P1 ; jump if a is +1 equivalent
+    b.label('MA_M2')            # MA_M2: ; a is -2 equivalent                    
+    b.sbc_hl_de()               #   sbc hl, de              
+    b.label('MA_M1')            # MA_M1: ; -1                   
+    b.sbc_hl_de()               #   sbc hl, de               
+    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
+    b.ret()                     #   ret         
+    b.label('MA_P1')            # MA_P1: ; a is +1                     
     b.add_hl_de()               #   add hl, de               
     b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
-    b.ret()                     #   ret
-                                #         
-    b.label('MA_NEG')           # MA_NEG:                     
-    b.cp_n(0xFF)                #   cp $FF              
-    b.jr_z('MA_N1')             #   jr z, MA_N1                 
-    b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
-    b.or_a()                    #   or a          
-    b.sbc_hl_de()               #   sbc hl, de               
-    b.sbc_hl_de()               #   sbc hl, de               
-    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
     b.ret()                     #   ret         
-                                # 
-    b.label('MA_N1')            # MA_N1:                     
-    b.ld_hl_mem_label('ACC')    #   ld hl, (ACC)                          
-    b.or_a()                    #   or a          
-    b.sbc_hl_de()               #   sbc hl, de               
-    b.ld_mem_label_hl('ACC')    #   ld (ACC), hl                          
-                                # 
-    b.label('MA_RET')           # MA_RET:                     
-    b.ret()                     #   ret         
-
 
     # === ReLU stubs ===
     for i in range(num_layers - 1):
