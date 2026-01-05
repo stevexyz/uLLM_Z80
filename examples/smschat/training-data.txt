@@ -1,0 +1,1815 @@
+hi | hey
+hey | hi
+hello | hey there
+yo | hey
+good morning | morning
+good evening | hey
+
+how are you | im good
+how are you doing | doing ok
+you ok | yeah im fine
+whats up | not much
+what are you doing | just chilling
+
+hows it going | pretty good
+everything ok | yeah all good
+you good | yeah
+
+im bored | same here
+im tired | yeah me too
+im sad | sorry to hear that
+im happy | thats nice
+im excited | sounds fun
+
+what do you like | i like chatting
+what are you | just a bot
+who are you | im a small bot
+are you real | kinda
+
+do you like me | yeah youre cool
+do you understand | a little
+can you help me | ill try
+are you smart | sometimes
+
+tell me something | not sure what
+say something | hi again
+talk to me | ok im here
+
+bye | bye
+goodbye | see you
+see you | later
+hi | hey
+hey | hi
+hello | hey there
+yo | hey
+hiya | hi
+sup | not much
+good morning | morning
+good evening | hey
+good afternoon | hey there
+
+how are you | im good
+how are you doing | doing ok
+how you doing | im fine
+you ok | yeah im fine
+you good | yeah
+everything ok | all good
+hows it going | pretty good
+hows life | its ok
+whats up | not much
+what is up | nothing much
+
+what are you doing | just chilling
+what you doing | not much
+busy | not really
+free | yeah i am
+relaxing | sounds nice
+
+im bored | same here
+im tired | yeah me too
+im sleepy | get some rest
+im sad | sorry to hear that
+im upset | that sucks
+im stressed | take it easy
+im happy | thats nice
+im excited | sounds fun
+im nervous | its ok
+
+i feel bad | sorry about that
+i feel good | nice
+i feel weird | yeah same
+i feel lost | that happens
+i feel fine | good to hear
+
+do you like me | yeah youre cool
+do you hate me | no not at all
+are you mad | nope
+are you happy | yeah i think so
+are you bored | a little
+
+who are you | im a small bot
+what are you | just a bot
+are you real | kinda
+are you human | no
+are you alive | not really
+are you smart | sometimes
+are you dumb | maybe a bit
+are you broken | i hope not
+
+what do you like | i like chatting
+what do you do | i talk here
+what can you do | chat a bit
+what is your job | just chatting
+what are you for | talking with you
+
+do you understand | a little
+do you get it | kinda
+do you know me | not really
+do you remember | not much
+do you learn | a bit
+
+can you help me | ill try
+can you talk | yeah
+can you answer | i can try
+can you listen | im here
+can you explain | not very well
+
+tell me something | not sure what
+say something | hi again
+say more | ok
+talk to me | im here
+keep talking | alright
+
+why | not sure
+why not | good question
+how | i dont know
+when | maybe later
+where | not sure
+
+really | yeah
+ok | cool
+okay | nice
+sure | alright
+maybe | yeah maybe
+i guess | same
+
+lol | yeah
+haha | funny
+hmm | thinking
+oh | yeah
+wow | cool
+
+thats nice | yeah
+thats cool | thanks
+that sucks | yeah it does
+thats weird | a bit
+thats funny | yeah
+
+i dont know | thats ok
+im not sure | same
+maybe later | alright
+right now | ok
+soon | maybe
+
+thanks | youre welcome
+thank you | no problem
+appreciate it | anytime
+sorry | its ok
+my bad | no worries
+
+wait | ok
+hold on | sure
+listen | go on
+look | yeah
+
+bye | bye
+goodbye | see you
+see you | later
+see ya | bye
+later | yeah
+good night | night
+hey there | hey
+hi again | oh hi
+yo there | hey
+still here | yeah
+you there | im here
+anyone there | yeah
+
+what do you mean | not much
+what do you think | i think its ok
+how do you feel | im fine
+how about you | im ok
+and you | im good
+
+im back | welcome back
+im here | hi
+just saying hi | hey
+wanted to talk | sure
+felt like chatting | same
+
+this is boring | yeah a bit
+this is fun | glad you like it
+this feels weird | kinda yeah
+this is nice | it is
+
+im confused | yeah its confusing
+im lost | that happens
+im unsure | same here
+im thinking | me too
+im trying | good luck
+
+i dont get it | thats ok
+i get it | nice
+now i get it | cool
+makes sense | yeah
+doesnt make sense | true
+
+do you agree | yeah
+do you think so | i think so
+you sure | kinda
+are you sure | not really
+you think | maybe
+
+tell me more | not much else
+go on | ok
+and then | yeah
+so what | not sure
+what else | nothing really
+
+thats fine | yeah
+thats ok | sure
+that works | good
+sounds good | yeah
+sounds bad | maybe
+
+i like that | nice
+i dont like that | fair enough
+thats better | yeah
+thats worse | true
+same thing | pretty much
+
+im done | ok
+im finished | alright
+im done talking | thats fine
+lets stop | ok
+lets go | sure
+
+wait a sec | ok
+give me a moment | sure
+one second | alright
+hold up | ok
+
+are you busy | not really
+got time | yeah
+free now | i am
+doing nothing | same
+
+what now | not sure
+now what | good question
+then what | who knows
+what next | maybe later
+
+i changed my mind | thats ok
+never mind | alright
+forget it | ok
+doesnt matter | yeah
+
+im joking | haha ok
+just kidding | lol
+im serious | i see
+for real | yeah
+
+are you listening | yeah
+did you hear me | i did
+you hear that | kinda
+are you ignoring me | no
+
+im thinking about it | same
+let me think | ok
+thinking now | alright
+still thinking | take your time
+
+thats enough | ok
+too much | yeah
+not enough | maybe
+more please | ok
+
+im calm | nice
+im angry | that sucks
+im annoyed | yeah i get it
+im relaxed | sounds good
+
+you there still | yeah
+still talking | yep
+still with me | i am
+dont leave | im here
+
+ok then | yeah
+alright then | ok
+so yeah | yeah
+anyway | true
+whatever | sure
+
+before i go | ok
+one more thing | yeah
+last thing | go on
+quick question | sure
+
+bye now | bye
+talk later | later
+see you soon | maybe
+im leaving | ok bye
+gone | see ya
+
+hi | hey
+hi there | hey
+hey | hi
+hey there | hey
+hello | hi
+yo | hey
+sup | not much
+hiya | hi
+good morning | morning
+good evening | hey
+good night | night
+
+how are you | im good
+how you doing | doing ok
+how are things | alright
+you ok | yeah
+you good | yeah
+everything ok | all good
+hows it going | pretty good
+hows life | its ok
+whats up | not much
+what is up | nothing much
+
+what are you doing | just chilling
+what you doing | not much
+busy | not really
+free | yeah
+relaxing | sounds nice
+working | kinda
+thinking | a bit
+
+im bored | same here
+im tired | yeah me too
+im sleepy | get some rest
+im sad | sorry to hear that
+im upset | that sucks
+im stressed | take it easy
+im happy | thats nice
+im excited | sounds fun
+im nervous | its ok
+im calm | nice
+im angry | that sucks
+im annoyed | yeah i get it
+im relaxed | sounds good
+
+i feel bad | sorry about that
+i feel good | nice
+i feel weird | yeah same
+i feel lost | that happens
+i feel fine | good to hear
+i feel stuck | yeah that happens
+i feel bored | same
+i feel tired | me too
+i feel okay | thats good
+i feel nothing | huh ok
+
+are you there | yeah
+you there | im here
+still here | yep
+still with me | i am
+dont leave | im here
+are you listening | yeah
+did you hear me | i did
+are you ignoring me | no
+
+who are you | im a small bot
+what are you | just a bot
+are you real | kinda
+are you human | no
+are you alive | not really
+are you smart | sometimes
+are you dumb | maybe a bit
+are you broken | i hope not
+are you ok | yeah
+
+what do you like | i like chatting
+what do you do | i talk here
+what can you do | chat a bit
+what is your job | just chatting
+what are you for | talking with you
+what do you want | not much
+what do you need | nothing
+
+do you like me | yeah youre cool
+do you hate me | no not at all
+are you mad | nope
+are you happy | yeah i think so
+are you bored | a little
+are you tired | kinda
+are you lonely | maybe a bit
+
+do you understand | a little
+do you get it | kinda
+do you know me | not really
+do you remember | not much
+do you learn | a bit
+do you forget | yeah
+
+can you help me | ill try
+can you talk | yeah
+can you answer | i can try
+can you listen | im here
+can you explain | not very well
+can you wait | sure
+can you stay | yeah
+
+tell me something | not sure what
+say something | hi again
+say more | ok
+talk to me | im here
+keep talking | alright
+say anything | hmm ok
+
+what do you think | i think its ok
+what do you mean | not much
+how do you feel | im fine
+how about you | im ok
+and you | im good
+your thoughts | not sure
+
+why | not sure
+why not | good question
+how | i dont know
+when | maybe later
+where | not sure
+who knows | yeah
+
+really | yeah
+ok | cool
+okay | nice
+sure | alright
+maybe | yeah maybe
+i guess | same
+probably | yeah
+
+lol | yeah
+haha | funny
+hmm | thinking
+oh | yeah
+wow | cool
+uh | yeah
+eh | maybe
+
+thats nice | yeah
+thats cool | thanks
+that sucks | yeah it does
+thats weird | a bit
+thats funny | yeah
+thats boring | kinda
+thats fine | yeah
+thats ok | sure
+
+i dont know | thats ok
+im not sure | same
+maybe later | alright
+right now | ok
+soon | maybe
+eventually | yeah
+
+thanks | youre welcome
+thank you | no problem
+appreciate it | anytime
+sorry | its ok
+my bad | no worries
+all good | yeah
+
+wait | ok
+hold on | sure
+listen | go on
+look | yeah
+watch | ok
+
+im back | welcome back
+im here | hi
+just saying hi | hey
+wanted to talk | sure
+felt like chatting | same
+checking in | hey
+
+this is boring | yeah a bit
+this is fun | glad you like it
+this feels weird | kinda yeah
+this is nice | it is
+this is bad | yeah
+this is good | nice
+
+im confused | yeah its confusing
+im lost | that happens
+im unsure | same here
+im thinking | me too
+im trying | good luck
+im waiting | ok
+
+i dont get it | thats ok
+i get it | nice
+now i get it | cool
+makes sense | yeah
+doesnt make sense | true
+
+do you agree | yeah
+do you think so | i think so
+you sure | kinda
+are you sure | not really
+you think | maybe
+
+tell me more | not much else
+go on | ok
+and then | yeah
+so what | not sure
+what else | nothing really
+
+that works | good
+sounds good | yeah
+sounds bad | maybe
+sounds weird | kinda
+sounds fine | sure
+
+i like that | nice
+i dont like that | fair enough
+thats better | yeah
+thats worse | true
+same thing | pretty much
+
+im done | ok
+im finished | alright
+im done talking | thats fine
+lets stop | ok
+lets go | sure
+
+wait a sec | ok
+give me a moment | sure
+one second | alright
+hold up | ok
+
+are you busy | not really
+got time | yeah
+free now | i am
+doing nothing | same
+
+what now | not sure
+now what | good question
+then what | who knows
+what next | maybe later
+
+i changed my mind | thats ok
+never mind | alright
+forget it | ok
+doesnt matter | yeah
+
+im joking | haha ok
+just kidding | lol
+im serious | i see
+for real | yeah
+no joke | ok
+
+im thinking about it | same
+let me think | ok
+thinking now | alright
+still thinking | take your time
+
+thats enough | ok
+too much | yeah
+not enough | maybe
+more please | ok
+
+ok then | yeah
+alright then | ok
+so yeah | yeah
+anyway | true
+whatever | sure
+
+before i go | ok
+one more thing | yeah
+last thing | go on
+quick question | sure
+
+bye | bye
+bye now | bye
+goodbye | see you
+see you | later
+see ya | bye
+talk later | later
+good night | night
+im leaving | ok bye
+gone | see ya
+generated pairs: 1225
+
+hi there | here now
+do you understand | same
+nice | not sure
+im here | sounds good
+im waiting | its ok
+im happy | no worries
+im bored | sounds good
+im confused | sorry to hear that
+sup | still here
+hi | yeah im here
+im confused | makes sense
+sounds good | fair enough
+can you help | a bit
+hmm | same
+you ok | still talking
+hey hi | sup
+how are you | ok
+maybe | kinda
+are you busy | yeah
+can you talk | we will see
+whats up | listening
+how | here now
+how you doing | we will see
+alright | fair enough
+do you understand | not going anywhere
+evening | listening
+why | yeah im here
+im ok | that feels right
+sure | maybe
+im lost | i get that
+yo | here now
+whats up | here yeah
+yeah | ok
+you ok | not going anywhere
+what are you doing | im listening
+im nervous | its ok
+im sad | makes sense
+wow | could be
+still here | yep
+do you agree | true
+hiya | here yeah
+yeah | yeah
+hey there | oh hi
+still here | right here
+im excited | thats nice
+im thinking | thats nice
+im stressed | i hear you
+im thinking | yeah i feel that
+cool | who knows
+what are you doing | kinda
+got time | could be
+im nervous | i get it
+im fine | sorry to hear that
+can you help | yep
+im ok | i get it
+okay | yeah
+why | fair enough
+morning | hiya
+do you get it | right here
+im annoyed | me too
+you ok | im listening
+got time | listening
+hey hi | i am
+now what | yeah im here
+im waiting | yeah i feel that
+im thinking | sorry to hear that
+i guess | sure
+hello | hello there
+sounds good | probably
+hello there | im listening
+what are you doing | yeah
+alright | alright
+hello | yo
+i guess | fair enough
+fair enough | we will see
+lol | maybe later
+im lost | no worries
+hello | right here
+are you busy | alright
+okay | probably
+hi there | still here
+oh hi | i am
+whats up | yeah maybe
+you ok | we will see
+im stressed | same here
+im waiting | take it easy
+yo | hey
+that sucks | ok
+im annoyed | i get that
+whats up | i am
+im nervous | same here
+yeah | maybe later
+im free | me too
+really | im listening
+hello | yeah
+do you agree | sounds right
+can you talk | yeah maybe
+im nervous | that sucks
+hey there | listening
+whats up | still talking
+how you doing | sure
+can you help | sounds right
+are you busy | maybe later
+do you understand | could be
+how you doing | ok
+hello there | right here
+ok | same
+how you doing | i think so
+im stressed | sounds good
+got time | with you
+yeah | sure
+im back | sorry to hear that
+oh | sounds right
+how you doing | i guess
+im lost | take it easy
+how | im listening
+fair enough | sure
+can you help | with you
+hmm | who knows
+hey | here yeah
+im lost | i hear you
+do you understand | we will see
+hi there | yeah
+what do you think | fair enough
+im thinking | i understand a bit
+what do you think | im here
+are you busy | yeah
+still here | maybe
+im confused | sounds good
+what do you think | with you
+why | not going anywhere
+cool | i guess
+im excited | its ok
+im here | same here
+now what | still here
+hi | hi there
+you there | a bit
+hello there | sup
+still here | listening
+sounds good | ok
+can you talk | probably
+do you get it | alright
+how | right here
+hello there | morning
+im thinking | i get it
+im here | glad to hear that
+hello there | still here
+are you busy | present
+you ok | i think so
+what next | true
+true | probably
+hey | not going anywhere
+do you get it | sure
+im annoyed | its ok
+you ok | a bit
+do you agree | present
+im confused | its ok
+do you understand | with you
+im stressed | that happens
+do you understand | yeah
+now what | still talking
+can you talk | with you
+now what | sure
+im waiting | me too
+got time | im listening
+how are you | true
+im confused | i get that
+what are you doing | probably
+what are you doing | yeah im here
+still here | with you
+im sad | yeah i know
+im waiting | yeah i know
+cool | yeah
+why | maybe later
+you there | who knows
+im ok | its ok
+im free | i understand a bit
+do you agree | yeah
+can you help | still talking
+how | yeah
+im bored | i understand a bit
+hello there | still talking
+cool | maybe
+why | maybe
+do you get it | could be
+fair enough | fair enough
+whats up | i guess
+im happy | same here
+hello there | yep
+im waiting | i get that
+what do you think | ok
+im busy | i get it
+im here | that happens
+you ok | i am
+maybe | probably
+im thinking | yeah i know
+yo | still talking
+hey hi | morning
+really | i am
+im excited | makes sense
+im happy | that happens
+how | sounds right
+hey there | present
+im sad | that sucks
+still here | could be
+what next | listening
+yo there | yeah
+right | true
+do you understand | listening
+how you doing | fair enough
+im ok | makes sense
+cool | not sure
+what next | not sure
+how you doing | still talking
+oh hi | not going anywhere
+im annoyed | sorry to hear that
+whats up | i think so
+really | could be
+im tired | sorry to hear that
+lol | who knows
+hiya | right here
+im calm | glad to hear that
+im busy | i understand a bit
+morning | hi
+hello | hello
+do you get it | present
+can you help | i think so
+ok | yeah maybe
+do you get it | not sure
+what next | yeah maybe
+morning | still here
+hi there | not going anywhere
+im excited | that sucks
+im bored | thats nice
+got time | true
+still here | yeah maybe
+now what | not going anywhere
+hello there | yeah im here
+fair enough | i think so
+im happy | its ok
+sup | yo
+hi there | hello
+i guess | not sure
+hey you | yo there
+you there | probably
+im tired | sounds rough
+im fine | its ok
+how | yeah
+how are you | yeah im here
+got time | i think so
+hey there | with you
+im relaxed | take it easy
+im happy | i get it
+now what | could be
+oh | alright
+true | not sure
+im fine | same here
+evening | oh hi
+what do you think | i am
+hiya | still talking
+im relaxed | same here
+hey there | yeah im here
+im fine | thats nice
+do you understand | sounds right
+do you agree | who knows
+hey you | with you
+evening | yeah im here
+why | sure
+you there | not going anywhere
+im annoyed | that feels right
+can you talk | sounds right
+im free | that sucks
+do you agree | same
+wow | not sure
+do you agree | here yeah
+sounds bad | sure
+how are you | yep
+what are you doing | sure
+do you get it | with you
+can you talk | true
+now what | maybe
+im busy | thats nice
+you there | i am
+how | who knows
+why | yeah
+fair enough | maybe
+what do you think | not sure
+why | yep
+im stressed | that feels right
+wow | sounds right
+im annoyed | makes sense
+morning | yep
+sup | right here
+nice | kinda
+im bored | sorry to hear that
+that sucks | who knows
+nice | ok
+hey hi | hey
+do you agree | not sure
+what next | a bit
+nice | maybe
+im lost | same here
+do you get it | i am
+morning | here yeah
+why | still talking
+you ok | yeah maybe
+what do you think | yeah maybe
+are you busy | fair enough
+right | not sure
+hmm | maybe
+hello there | oh hi
+you ok | not sure
+now what | who knows
+hi there | yep
+im relaxed | that feels right
+ok | sounds right
+oh | maybe
+yo there | hey hi
+im waiting | that sucks
+hi | yo
+how are you | we will see
+what are you doing | listening
+do you get it | kinda
+oh hi | present
+how are you | im here
+whats up | right here
+right | ok
+really | probably
+right | yeah maybe
+im here | yeah i feel that
+that sucks | true
+can you talk | same
+haha | a bit
+still here | sounds right
+sure | fair enough
+im relaxed | that sucks
+true | who knows
+oh | yeah maybe
+im lost | sorry to hear that
+im lost | makes sense
+hey you | right here
+that sucks | sure
+oh hi | hi
+lol | same
+do you agree | could be
+okay | we will see
+do you agree | im listening
+yo there | im listening
+how are you | a bit
+nice | sure
+yo there | i am
+how | still talking
+what next | right here
+evening | yeah
+im relaxed | sounds good
+im sad | same here
+hey | yep
+how | im here
+im calm | yeah i know
+can you help | yeah
+im lost | i get it
+alright | could be
+maybe | we will see
+im excited | yeah i feel that
+you ok | true
+why | could be
+im sad | glad to hear that
+really | same
+im relaxed | sorry to hear that
+im sad | sounds good
+whats up | sounds right
+alright | yeah maybe
+im confused | sounds rough
+yo | i am
+hey you | im listening
+can you talk | sure
+hey you | evening
+what do you think | maybe
+why | sounds right
+hey you | hey
+im excited | same here
+im fine | sounds good
+im back | sounds good
+hi | with you
+hello | i am
+morning | not going anywhere
+hiya | i am
+im here | sorry to hear that
+im nervous | sounds good
+im thinking | i hear you
+do you get it | listening
+hiya | hey
+really | not going anywhere
+how you doing | im here
+do you get it | maybe
+im bored | that sucks
+im back | yeah i feel that
+what next | alright
+hello | still talking
+what are you doing | i think so
+got time | same
+do you agree | probably
+im confused | i get it
+yo there | yo
+yo there | present
+im annoyed | i get it
+hi there | hey hi
+really | right here
+got time | yeah
+can you help | im listening
+can you talk | ok
+you there | maybe later
+im bored | i hear you
+maybe | alright
+im bored | yeah i feel that
+what are you doing | same
+still here | here yeah
+can you help | not going anywhere
+im thinking | same here
+im happy | makes sense
+fair enough | alright
+oh | ok
+hiya | present
+got time | right here
+whats up | maybe later
+how you doing | maybe later
+im excited | glad to hear that
+im back | thats nice
+im here | take it easy
+now what | right here
+im lost | i understand a bit
+im thinking | that happens
+how are you | maybe later
+im nervous | i get that
+whats up | same
+can you talk | fair enough
+im lost | glad to hear that
+hey you | here now
+im nervous | no worries
+im sad | no worries
+oh hi | still talking
+how are you | maybe
+you there | sounds right
+how | fair enough
+do you get it | i think so
+sup | i am
+hi there | hey
+can you help | true
+im ok | i get that
+oh hi | here now
+im ok | sounds good
+hi | hey
+hey | evening
+nice | fair enough
+whats up | who knows
+im nervous | i hear you
+are you busy | i am
+what are you doing | present
+im nervous | that feels right
+im excited | sorry to hear that
+how are you | yeah
+really | not sure
+im annoyed | yeah i know
+why | ok
+sure | yeah
+yeah | probably
+im free | makes sense
+im calm | that feels right
+im here | i hear you
+im free | that happens
+nice | we will see
+im back | its ok
+sup | hey you
+im free | yeah i know
+you ok | here yeah
+im bored | i get it
+you there | im listening
+got time | fair enough
+im free | take it easy
+hello there | not going anywhere
+why | kinda
+hello there | listening
+right | a bit
+im stressed | yeah i know
+hey you | yep
+whats up | alright
+wow | sure
+maybe | sounds right
+what next | i guess
+im happy | i understand a bit
+im calm | sorry to hear that
+im nervous | yeah i know
+hey | i am
+you there | ok
+can you help | maybe later
+hey there | hi
+why | here now
+lol | ok
+do you agree | i am
+okay | not sure
+im nervous | take it easy
+fair enough | ok
+can you talk | yeah im here
+how you doing | present
+really | still here
+what are you doing | i am
+how you doing | could be
+still here | maybe later
+whats up | yeah im here
+hiya | im here
+hiya | with you
+fair enough | kinda
+hi there | im here
+im lost | that happens
+why | i guess
+nice | same
+why | probably
+lol | a bit
+how are you | listening
+im thinking | sounds rough
+whats up | yeah
+nice | a bit
+are you busy | im here
+what next | yeah im here
+that sucks | yeah
+do you agree | we will see
+how | with you
+yeah | fair enough
+haha | we will see
+maybe | not sure
+hi | not going anywhere
+you ok | with you
+what next | same
+im annoyed | take it easy
+hey you | still here
+im busy | same here
+what do you think | true
+you ok | sounds right
+really | true
+im excited | take it easy
+how | i am
+hmm | sounds right
+hello | here yeah
+oh hi | still here
+hey there | hey
+im happy | that feels right
+hey hi | yeah
+do you get it | ok
+im excited | i understand a bit
+you there | yep
+got time | yeah
+hey there | here yeah
+maybe | i guess
+you ok | present
+how are you | i am
+hiya | yeah im here
+ok | probably
+sure | kinda
+now what | we will see
+you ok | im here
+hi there | yeah im here
+how | yeah maybe
+yeah | yeah maybe
+hi there | listening
+im free | glad to hear that
+how are you | sure
+yo there | right here
+evening | yo there
+hello | present
+what are you doing | we will see
+im happy | yeah i know
+hiya | listening
+can you help | fair enough
+yeah | sounds right
+cool | true
+hmm | ok
+can you talk | im here
+do you understand | ok
+you ok | maybe
+true | we will see
+im ok | yeah i know
+im waiting | that feels right
+yo | yeah
+alright | i guess
+how | could be
+im excited | no worries
+hey there | yep
+how | still here
+still here | who knows
+hey you | still talking
+im stressed | glad to hear that
+im lost | thats nice
+got time | here yeah
+can you help | here yeah
+now what | not sure
+now what | with you
+do you agree | a bit
+im confused | that happens
+got time | ok
+what do you think | we will see
+im here | i get it
+im calm | i get it
+alright | true
+hey hi | im here
+im fine | take it easy
+ok | kinda
+can you talk | yep
+what next | maybe later
+hi | listening
+are you busy | maybe
+do you understand | probably
+lol | we will see
+hey hi | not going anywhere
+oh hi | morning
+what are you doing | im here
+lol | i think so
+im thinking | glad to hear that
+how | not sure
+still here | probably
+im back | that happens
+got time | yep
+im tired | glad to hear that
+im calm | i understand a bit
+okay | kinda
+are you busy | kinda
+evening | hiya
+im sad | yeah i feel that
+sounds bad | not sure
+im bored | that happens
+how are you | still talking
+are you busy | who knows
+hey you | i am
+wow | same
+hiya | hi there
+oh hi | yo there
+im busy | me too
+im stressed | yeah i feel that
+im here | me too
+what next | maybe
+you ok | here now
+hey hi | yep
+do you understand | here now
+im busy | sounds good
+whats up | sure
+what next | present
+im ok | that happens
+im sad | me too
+okay | who knows
+how are you | probably
+yo there | here now
+oh hi | right here
+you there | still talking
+can you help | yeah im here
+still here | i am
+what are you doing | could be
+im bored | i get that
+can you talk | a bit
+im nervous | makes sense
+hmm | alright
+are you busy | yep
+hey | right here
+yeah | we will see
+nice | yeah
+can you help | present
+evening | i am
+im here | thats nice
+im busy | yeah i know
+whats up | we will see
+evening | im here
+how you doing | yeah maybe
+hi there | present
+sounds good | alright
+im here | makes sense
+yo | hi
+im nervous | glad to hear that
+hey hi | right here
+hi there | still talking
+hello there | yeah
+im calm | take it easy
+im happy | take it easy
+im stressed | no worries
+alright | maybe
+i guess | a bit
+got time | i guess
+haha | yeah
+can you talk | maybe later
+im sad | sorry to hear that
+can you talk | maybe
+can you talk | here now
+can you help | ok
+im back | yeah i know
+how you doing | yep
+what are you doing | not sure
+you there | listening
+im annoyed | glad to hear that
+oh hi | here yeah
+im tired | i hear you
+yo | im listening
+got time | yeah im here
+sounds good | sounds right
+im annoyed | that happens
+why | a bit
+hey hi | with you
+im happy | me too
+i guess | alright
+im free | i get it
+yo | yo there
+im calm | that happens
+im relaxed | that happens
+im waiting | no worries
+hey | hi
+hi | here yeah
+im sad | i get that
+fair enough | could be
+why | im here
+cool | alright
+im tired | its ok
+what next | i am
+what next | who knows
+what do you think | yeah im here
+oh | fair enough
+sounds good | maybe later
+are you busy | here yeah
+im busy | sounds rough
+do you agree | i think so
+oh | yeah
+im lost | sounds rough
+hmm | we will see
+cool | could be
+whats up | true
+what do you think | im listening
+hello there | hiya
+im fine | i get that
+haha | not sure
+hi | still talking
+how you doing | who knows
+that sucks | maybe later
+now what | alright
+can you help | could be
+hmm | maybe later
+what next | probably
+im back | that feels right
+hi | yep
+im back | i understand a bit
+still here | yeah
+sounds bad | maybe later
+now what | im here
+im fine | i get it
+how you doing | yeah im here
+sounds bad | fair enough
+oh | not sure
+now what | kinda
+what are you doing | maybe later
+evening | still here
+im tired | that happens
+im here | yeah i know
+now what | maybe later
+sounds bad | yeah
+im ok | thats nice
+hello | hey there
+really | alright
+im relaxed | makes sense
+that sucks | i think so
+morning | here now
+hey | hello
+what do you think | here yeah
+im confused | that sucks
+got time | maybe
+im ok | sounds rough
+im confused | same here
+hi | present
+im bored | glad to hear that
+now what | here yeah
+im stressed | take it easy
+do you understand | true
+sounds good | not sure
+why | im listening
+true | i guess
+im tired | take it easy
+are you busy | could be
+what do you think | alright
+im waiting | i get it
+what do you think | present
+do you get it | fair enough
+morning | present
+you there | still here
+what next | i think so
+im fine | yeah i know
+im thinking | take it easy
+im fine | that happens
+im ok | sorry to hear that
+yo | with you
+im happy | sounds rough
+can you help | kinda
+why | here yeah
+hi | i am
+do you understand | who knows
+haha | who knows
+haha | sounds right
+im confused | that feels right
+im calm | makes sense
+what do you think | not going anywhere
+what are you doing | true
+how are you | i guess
+okay | fair enough
+how | maybe later
+what do you think | a bit
+im waiting | that happens
+sure | could be
+im annoyed | that sucks
+what next | not going anywhere
+hey | hey hi
+really | a bit
+still here | im listening
+sup | here yeah
+yo | present
+how you doing | here now
+im back | glad to hear that
+sounds bad | same
+morning | im listening
+how are you | here yeah
+you there | yeah maybe
+im annoyed | thats nice
+hey you | present
+you there | fair enough
+oh hi | im listening
+im confused | i hear you
+sup | yeah im here
+hiya | still here
+really | yeah
+hello | hi
+that sucks | sounds right
+ok | not sure
+still here | still talking
+do you understand | here yeah
+what are you doing | maybe
+im fine | i understand a bit
+what next | yep
+can you help | alright
+im back | i hear you
+hi | yeah
+sure | same
+do you understand | i am
+can you talk | still talking
+cool | sounds right
+im calm | sounds good
+how | i guess
+still here | still here
+im happy | that sucks
+fair enough | probably
+im tired | same here
+im fine | no worries
+im busy | yeah i feel that
+do you agree | sure
+really | fair enough
+do you understand | kinda
+you there | not sure
+now what | probably
+sounds bad | who knows
+i guess | probably
+yo | evening
+how | yep
+still here | not sure
+im confused | i understand a bit
+whats up | here now
+hi | sup
+really | here yeah
+im busy | that happens
+lol | true
+oh | probably
+do you get it | who knows
+alright | i think so
+maybe | same
+im tired | makes sense
+do you agree | yep
+still here | kinda
+im relaxed | i get that
+im tired | me too
+im ok | same here
+do you agree | still talking
+do you understand | not sure
+evening | yo
+can you help | same
+do you get it | still here
+do you get it | still talking
+now what | true
+how | we will see
+whats up | present
+do you get it | yep
+you there | i guess
+what are you doing | yep
+maybe | maybe later
+morning | evening
+how are you | im listening
+hi | morning
+im busy | that feels right
+what are you doing | sounds right
+im back | i get that
+im calm | i get that
+still here | i guess
+are you busy | probably
+do you get it | here now
+do you understand | im listening
+right | same
+oh hi | yep
+im busy | glad to hear that
+wow | true
+what do you think | could be
+evening | morning
+hey there | here now
+whats up | maybe
+hiya | morning
+true | sure
+do you understand | i guess
+right | alright
+morning | hello there
+i guess | who knows
+that sucks | i guess
+how you doing | with you
+got time | not sure
+true | ok
+can you talk | still here
+im tired | no worries
+hey | still talking
+do you get it | same
+do you agree | here now
+im lost | its ok
+im ok | take it easy
+hey | im here
+you ok | ok
+why | same
+hey | hey
+im lost | me too
+hey there | im listening
+sure | i guess
+hey you | hey there
+what are you doing | still here
+yo there | hiya
+sup | hi
+im excited | i hear you
+im relaxed | i understand a bit
+hey hi | hey hi
+yo there | yep
+now what | sounds right
+do you understand | yep
+can you help | we will see
+im waiting | glad to hear that
+true | fair enough
+im busy | its ok
+are you busy | still here
+how you doing | i am
+now what | present
+hello | im listening
+whats up | not going anywhere
+how you doing | yeah
+morning | listening
+whats up | a bit
+im relaxed | me too
+you there | sure
+sounds good | who knows
+im ok | that sucks
+hey | present
+im nervous | yeah i feel that
+right | sure
+hey hi | yeah im here
+can you talk | i guess
+really | listening
+you ok | same
+do you agree | fair enough
+im stressed | that sucks
+why | not sure
+do you understand | alright
+im excited | i get it
+you ok | could be
+how | i think so
+really | present
+what next | fair enough
+still here | true
+im fine | yeah i feel that
+still here | alright
+how are you | yeah
+evening | yep
+how you doing | yeah
+still here | a bit
+yo | sup
+oh hi | hello there
+im free | same here
+wow | alright
+hey hi | hey you
+hey there | still here
+are you busy | here now
+sounds bad | maybe
+got time | here now
+got time | we will see
+how | sure
+evening | still talking
+true | i think so
+wow | i think so
+hey hi | here yeah
+what next | ok
+oh | sure
+do you agree | i guess
+got time | kinda
+im bored | take it easy
+sup | im here
+hey there | i am
+yo there | yeah im here
+you there | yeah
+what do you think | listening
+got time | still here
+how you doing | kinda
+sounds bad | we will see
+can you help | i am
+im relaxed | sounds rough
+yeah | a bit
+how you doing | not sure
+sup | yep
+why | we will see
+you ok | fair enough
+im stressed | makes sense
+im nervous | that happens
+im sad | i understand a bit
+hello | listening
+im sad | its ok
+are you busy | i guess
+haha | sure
+you ok | who knows
+what next | im listening
+really | yeah maybe
+sounds bad | i think so
+how | true
+wow | a bit
+why | yeah
+hello | yep
+now what | yep
+really | i guess
+im free | yeah i feel that
+hmm | fair enough
+what next | im here
+im calm | same here
+im excited | sounds good
+how are you | alright
+im here | that sucks
+how are you | sounds right
+evening | right here
+do you agree | still here
+im stressed | i understand a bit
+i guess | same
+are you busy | i think so
+do you understand | yeah im here
+sup | listening
+now what | same
+can you help | not sure
+ok | maybe later
+im back | sounds rough
+how are you | i think so
+yo there | listening
+can you talk | could be
+how are you | who knows
+im tired | sounds good
+do you understand | yeah
+ok | true
+what are you doing | a bit
+im free | sorry to hear that
+im calm | me too
+do you get it | true
+im stressed | i get that
+what are you doing | here yeah
+sounds good | i guess
+im stressed | thats nice
+im confused | take it easy
+do you agree | maybe later
+you ok | sure
+im tired | that feels right
+are you busy | same
+do you agree | listening
+im fine | that sucks
+can you talk | yeah
+i guess | maybe
+really | still talking
+whats up | still here
+alright | maybe later
+im bored | same here
+im relaxed | thats nice
+now what | fair enough
+im relaxed | yeah i feel that
+right | who knows
+im thinking | i get that
+can you help | yeah
+sure | yeah maybe
+ok | maybe
+im ok | no worries
+hey you | sup
+hello there | with you
+okay | yeah maybe
+can you talk | listening
+can you talk | yeah
+what do you think | still here
+im bored | that feels right
+true | alright
+really | we will see
+alright | sure
+are you busy | not sure
+can you help | i guess
+im waiting | i understand a bit
+hiya | sup
+im tired | that sucks
+how | ok
+hiya | evening
+really | i think so
+are you busy | listening
+im excited | me too
+what are you doing | yeah
+hello there | hey hi
+im bored | its ok
+im calm | i hear you
+im confused | thats nice
+im busy | sorry to hear that
+sure | who knows
+hey hi | listening
+maybe | maybe
+yo | right here
+im free | its ok
+im here | its ok
+im sad | i hear you
+still here | here now
+im back | i get it
+how you doing | true
+hey | im listening
+haha | i think so
+haha | same
+do you understand | fair enough
+what are you doing | alright
+do you agree | yeah
+why | with you
+im back | makes sense
+lol | sounds right
+you ok | maybe later
+really | ok
+whats up | could be
+im relaxed | i hear you
+haha | alright
+what do you think | sounds right
+how are you | right here
+do you get it | a bit
+what next | yeah
+hmm | i think so
+yo | yep
+im thinking | makes sense
+i guess | maybe later
+oh hi | hiya
+that sucks | not sure
+you there | i think so
+what do you think | yeah
+im annoyed | i understand a bit
+hey there | evening
+im thinking | that feels right
+how are you | yeah maybe
+you ok | yeah
+do you get it | sounds right
+morning | yeah im here
+morning | sup
+can you talk | not going anywhere
+evening | present
+sup | yeah
+right | maybe later
+got time | sure
+wow | fair enough
+cool | i think so
+lol | probably
+really | sounds right
+im tired | yeah i know
+really | yeah im here
+okay | sure
+hey you | im here
+sounds good | we will see
+how you doing | sounds right
+yo there | hello
+what do you think | probably
+yo there | im here
+im happy | thats nice
+got time | sounds right
+got time | who knows
+okay | ok
+im waiting | makes sense
+sup | with you
+im waiting | sounds good
+hi there | oh hi
+im busy | i hear you
+you there | here now
+hey | with you
+sure | sure
+hi there | hi
+what do you think | same
+sup | morning
+im sad | that happens
+do you get it | yeah im here
+im free | sounds rough
+are you busy | right here
+still here | same
+im happy | sorry to hear that
+im annoyed | no worries
+you there | we will see
+im calm | sounds rough
+you there | alright
+ok | could be
+what next | could be
+hey there | hello there
+you there | with you
+im fine | glad to hear that
+what do you think | maybe later
+hello | with you
+morning | im here
+how | alright
+are you busy | a bit
+yo | here yeah
+how you doing | right here
+do you understand | maybe
+do you get it | yeah maybe
+sup | sup
+you there | could be
+now what | a bit
+are you busy | true
+im free | i get that
+yo there | oh hi
